@@ -126,7 +126,12 @@
             color:red;
             margin-left:300px;
         }
-
+        
+        .radio{
+            margin-top:5px;
+            margin-right:8px;
+            color:#fff;
+        }
     </style>
 </head>
 <body>
@@ -197,6 +202,18 @@
       </div>
     </div>
 
+    <div class="row">
+        <div class="col-25">
+            <label for="gender">Gender</label>
+        </div>
+
+        <div class="col-75">
+        <div class="radio">
+        <input type="radio" name="gender" value="Male"> Male
+        <input type="radio" name="gender" value="Female"> Female<br>
+        </div>
+        </div>
+    </div>
 
     <div class="row">
       <div class="col-25">

@@ -13,6 +13,7 @@ session_start();
       $month = mysqli_real_escape_string($db,$_POST['month']); 
       $date = mysqli_real_escape_string($db,$_POST['date']); 
       $year = mysqli_real_escape_string($db,$_POST['year']); 
+      $gender = mysqli_real_escape_string($db,$_POST['gender']); 
       $country = mysqli_real_escape_string($db,$_POST['country']);
       $email = mysqli_real_escape_string($db,$_POST['email']); 
       $phone = mysqli_real_escape_string($db,$_POST['phone']); 
@@ -26,20 +27,18 @@ session_start();
         $sql = "INSERT INTO user VALUES
         ('$firstName','$lastName','$scName','$dob','$gender','$country','$email','$phone','$pass1')";
         mysqli_query($db,$sql);
+        //header("location:form.php");
+        echo "Register Successfull";
       }else{
           $error="Passwords are not match!";
           $_SESSION["error"]=$error;
           header("location:form.php");
+
       }
       
       
       $_SESSION["message"]=$message;
 
     }
-
-    echo $firstName;
-    echo $lastName;
-    echo $country;
-    echo $dob;
 
 ?>
