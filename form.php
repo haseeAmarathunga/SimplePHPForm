@@ -122,6 +122,10 @@
             margin-bottom:4px;
             margin-top:4px;
         }
+        .alert{
+            color:red;
+            margin-left:300px;
+        }
 
     </style>
 </head>
@@ -131,8 +135,16 @@
     Sign Up
  </div>
  
+ <div class="alert">
+	<?php
+		if (isset($_SESSION["error"])){
+			$error=$_SESSION["error"];
+			echo "<span>$error</span>";
+		}
+	?>
+</div>
 
-  <form action="query.php">
+<form action="query.php" method="POST">
   <div class="container">
     <div class="row">
       <div class="col-25">
