@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +13,7 @@
         }
 
         input[type=text],input[type=password],input[type=email], textarea {
-            width: 100%;
+            width: 90%;
             padding: 12px;
             border: 1px solid #ccc;
             border-radius: 4px;
@@ -27,7 +31,7 @@
         }
 
         .country{
-            width: 100%;
+            width: 90%;
             padding: 12px;
             border: 1px solid #ccc;
             border-radius: 4px;
@@ -40,7 +44,7 @@
             padding: 12px 12px 12px 0;
             display: inline-block;
             color:#ff0;
-            margin-left:30px;
+            margin-left:10%;
         }
 
         input[type=submit] {
@@ -50,7 +54,7 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            margin-left:430px;
+            margin-left:70%;
             margin-right:5px;
         }
 
@@ -78,8 +82,8 @@
         }
 
         .fluid {
-            margin-left:350px;
-            margin-right:350px;
+            margin-left:20%;
+            margin-right:20%;
         }
 
         .col-25 {
@@ -144,8 +148,11 @@
 	<?php
 		if (isset($_SESSION["error"])){
 			$error=$_SESSION["error"];
-			echo "<span>$error</span>";
-		}
+			echo "<script>alert('$error')</script>";
+		}else{
+            $message=$_SESSION["message"];
+			echo "<script>alert('$message')</script>";
+        }
 	?>
 </div>
 
@@ -538,3 +545,7 @@
     
 </body>
 </html>
+
+<?php
+	unset($_SESSION["error"]);
+?>

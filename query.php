@@ -22,13 +22,14 @@ session_start();
 
       $dob=$year."/".$month."/".$date;
       
-      $message=$scName;
+      $message="";
       if($pass1==$pass2){
         $sql = "INSERT INTO user VALUES
         ('$firstName','$lastName','$scName','$dob','$gender','$country','$email','$phone','$pass1')";
         mysqli_query($db,$sql);
         //header("location:form.php");
-        echo "Register Successfull";
+        $message="Welcome";
+        header("location:form.php");
       }else{
           $error="Passwords are not match!";
           $_SESSION["error"]=$error;
