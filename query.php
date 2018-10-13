@@ -23,21 +23,44 @@ session_start();
 
       $dob=$year."/".$month."/".$date;
       
+      //function for add details.
+      function addDetails($firstName,$lastName,$scName,$dob,$gender,$country,$email,$phone,$pass1,$pass2){
       
-      if($pass1==$pass2){
-        $sql = "INSERT INTO user VALUES
-        ('$firstName','$lastName','$scName','$dob','$gender','$country','$email','$phone','$pass1')";
-        mysqli_query($db,$sql);
-        //header("location:form.php");
-        $message="Register Successfully. Welcome ".$firstName;
-        $_SESSION["message"]=$message;
-        header("location:form.php");
-      }else{
-          $error="Passwords are not match!";
-          $_SESSION["error"]=$error;
+        if($pass1==$pass2){
+          $sql = "INSERT INTO user VALUES
+          ('$firstName','$lastName','$scName','$dob','$gender','$country','$email','$phone','$pass1')";
+          mysqli_query($db,$sql);
+          //header("location:form.php");
+          $message="Register Successfully. Welcome ".$firstName;
+          $_SESSION["message"]=$message;
           header("location:form.php");
+        }else{
+            $error="Passwords are not match!";
+            $_SESSION["error"]=$error;
+            header("location:form.php");
 
+        }
       }
+
+      function updateDetails($firstName,$lastName,$scName,$dob,$gender,$country,$email,$phone,$pass1,$pass2){
+      
+        if($pass1==$pass2){
+          $sql = "UPDATE firstName='$firstName',lastName='$lastName',scName='$scName',
+          '$dob','$gender','$country','$email','$phone','$pass1')";
+          mysqli_query($db,$sql);
+          //header("location:form.php");
+          $message="Register Successfully. Welcome ".$firstName;
+          $_SESSION["message"]=$message;
+          header("location:form.php");
+        }else{
+            $error="Passwords are not match!";
+            $_SESSION["error"]=$error;
+            header("location:form.php");
+
+        }
+      }
+
+      addDetails($firstName,$lastName,$scName,$dob,$gender,$country,$email,$phone,$pass1,$pass2);
       
       
       

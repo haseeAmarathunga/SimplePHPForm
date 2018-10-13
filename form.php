@@ -184,27 +184,51 @@ session_start();
       </div>
     </div>
 
+
+  
     <div class="row">
       <div class="col-25">
         <label for="dob">Date of Birth</label>
       </div>
       <div class="col-75">
-        <select id="month" name="month" required>
-          <option value="january">January</option>
-          <option value="february">February</option>
-          <option value="march">March</option>
+        <select id="month" name="month" required onchange="SelectDate(this);">
+          <option value="no">Select</option>
+          <option value="01">January</option>
+          <option value="02">February</option>
+          <option value="03">March</option>
+          <option value="04">April</option>
+          <option value="05">May</option>
+          <option value="06">June</option>
+          <option value="07">July</option>
+          <option value="08">August</option>
+          <option value="09">September</option>
+          <option value="10">October</option>
+          <option value="11">November</option>
+          <option value="12">December</option>
         </select>
 
         <select id="date" name="date" required>
-          <option value="01">01</option>
-          <option value="02">02</option>
-          <option value="03">03</option>
+         
         </select>
 
         <select id="year" name="year" required>
+          <option value="2000">2000</option>
+          <option value="1999">1999</option>
+          <option value="1998">1998</option>
+          <option value="1997">1997</option>
           <option value="1996">1996</option>
           <option value="1995">1995</option>
-          <option value="1194">1994</option>
+          <option value="1994">1994</option>
+          <option value="1993">1993</option>
+          <option value="1992">1992</option>
+          <option value="1991">1991</option>
+          <option value="1990">1990</option>
+          <option value="1989">1989</option>
+          <option value="1988">1988</option>
+          <option value="1987">1987</option>
+          <option value="1986">1986</option>
+          <option value="1985">1985</option>
+          <option value="1984">1984</option>
         </select>
       </div>
     </div>
@@ -550,3 +574,63 @@ session_start();
     unset($_SESSION["error"]);
     unset($_SESSION["message"]);
 ?>
+
+<script type="text/javascript">
+                  
+                  var date = new Array(12) 
+                  date["01"] = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15',
+                  '16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31']; 
+                  date["02"] = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15',
+                  '16','17','18','19','20','21','22','23','24','25','26','27','28']; 
+                  date["03"] = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15',
+                  '16','17','18','19','20','21','22','23','24','25','26','27','28','29','30']; 
+                  date["04"]= ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15',
+                  '16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31'];
+                  date["05"] = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15',
+                  '16','17','18','19','20','21','22','23','24','25','26','27','28','29','30']; 
+                  date["06"] = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15',
+                  '16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31']; 
+                  date["07"] = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15',
+                  '16','17','18','19','20','21','22','23','24','25','26','27','28','29','30']; 
+                  date["08"]= ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15',
+                  '16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31'];
+                  date["09"] = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15',
+                  '16','17','18','19','20','21','22','23','24','25','26','27','28','29','30']; 
+                  date["10"] = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15',
+                  '16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31']; 
+                  date["11"] = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15',
+                  '16','17','18','19','20','21','22','23','24','25','26','27','28','29','30']; 
+                  date["12"]= ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15',
+                  '16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31'];   
+   
+                  function SelectDate(selectObj) { 
+                  // get the index of the selected option 
+                  var idx = selectObj.selectedIndex; 
+                  // get the value of the selected option 
+                  var which = selectObj.options[idx].value; 
+                  // use the selected option value to retrieve the list of items from the date array 
+                  cList = date[which]; 
+                  // get the Date select element via its known id 
+                  var cSelect = document.getElementById("date"); 
+                  // remove the current options from the Date select 
+                  var len=cSelect.options.length; 
+                  while (cSelect.options.length > 0) { 
+                  cSelect.remove(0); 
+                  } 
+                  var newOption; 
+                  // create new options 
+                  for (var i=0; i<cList.length; i++) { 
+                  newOption = document.createElement("option"); 
+                  newOption.value = cList[i];  // assumes option string and value are the same 
+                  newOption.text=cList[i]; 
+                  // add the new option 
+                  try { 
+                  cSelect.add(newOption);  // this will fail in DOM browsers but is needed for IE 
+                  } 
+                  catch (e) { 
+                  cSelect.appendChild(newOption); 
+                  } 
+                  } 
+                  } 
+                  //]]>
+            </script>
