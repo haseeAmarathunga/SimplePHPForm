@@ -3,6 +3,7 @@ include("database.php");
 
 session_start();
    $error = "";
+   $message="";
    if($_SERVER["REQUEST_METHOD"] == "POST") {
       // username and password sent from form 
       
@@ -22,13 +23,14 @@ session_start();
 
       $dob=$year."/".$month."/".$date;
       
-      $message="";
+      
       if($pass1==$pass2){
         $sql = "INSERT INTO user VALUES
         ('$firstName','$lastName','$scName','$dob','$gender','$country','$email','$phone','$pass1')";
         mysqli_query($db,$sql);
         //header("location:form.php");
-        $message="Welcome";
+        $message="Register Successfully. Welcome ".$firstName;
+        $_SESSION["message"]=$message;
         header("location:form.php");
       }else{
           $error="Passwords are not match!";
@@ -38,7 +40,7 @@ session_start();
       }
       
       
-      $_SESSION["message"]=$message;
+      
 
     }
 

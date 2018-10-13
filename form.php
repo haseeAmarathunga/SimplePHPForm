@@ -149,7 +149,7 @@ session_start();
 		if (isset($_SESSION["error"])){
 			$error=$_SESSION["error"];
 			echo "<script>alert('$error')</script>";
-		}else{
+		}else if(isset($_SESSION["message"])){
             $message=$_SESSION["message"];
 			echo "<script>alert('$message')</script>";
         }
@@ -547,5 +547,6 @@ session_start();
 </html>
 
 <?php
-	unset($_SESSION["error"]);
+    unset($_SESSION["error"]);
+    unset($_SESSION["message"]);
 ?>
