@@ -24,8 +24,8 @@ session_start();
       $dob=$year."/".$month."/".$date;
       
       //function for add details.
-      function addDetails($firstName,$lastName,$scName,$dob,$gender,$country,$email,$phone,$pass1,$pass2){
-      
+      function addDetails($db,$firstName,$lastName,$scName,$dob,$gender,$country,$email,$phone,$pass1,$pass2){
+
         if($pass1==$pass2){
           $sql = "INSERT INTO user VALUES
           ('$firstName','$lastName','$scName','$dob','$gender','$country','$email','$phone','$pass1')";
@@ -42,14 +42,15 @@ session_start();
         }
       }
 
-      function updateDetails($firstName,$lastName,$scName,$dob,$gender,$country,$email,$phone,$pass1,$pass2){
-      
+      function updateDetails($db,$firstName,$lastName,$scName,$dob,$gender,$country,$email,$phone,$pass1,$pass2){
+      //I get screenName as the Primary Key.
         if($pass1==$pass2){
-          $sql = "UPDATE firstName='$firstName',lastName='$lastName',scName='$scName',
-          '$dob','$gender','$country','$email','$phone','$pass1')";
+          $sql = "UPDATE user SET firstName='$firstName',lastName='$lastName',
+          dob='$dob',gender='$gender',country='$country',email='$email',phone='$phone' WHERE
+          screenName='$scName')";
           mysqli_query($db,$sql);
-          //header("location:form.php");
-          $message="Register Successfully. Welcome ".$firstName;
+          header("location:form.php");
+          $message="Update Successfully";
           $_SESSION["message"]=$message;
           header("location:form.php");
         }else{
@@ -60,7 +61,7 @@ session_start();
         }
       }
 
-      addDetails($firstName,$lastName,$scName,$dob,$gender,$country,$email,$phone,$pass1,$pass2);
+      addDetails($db,$firstName,$lastName,$scName,$dob,$gender,$country,$email,$phone,$pass1,$pass2);
       
       
       
