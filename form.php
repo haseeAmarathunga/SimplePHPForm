@@ -8,6 +8,30 @@ session_start();
     <title>simplePHPForm</title>
 
     <style>
+        #customers {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #customers td, #customers th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #customers tr:nth-child(even){background-color: #f2f2f2;}
+
+        #customers tr:hover {background-color: #ddd;}
+
+        #customers th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #222536;
+            color: white;
+        }
+
+
         * {
             box-sizing: border-box;
         }
@@ -62,6 +86,29 @@ session_start();
             background-color: #45a049;
         }
 
+        .btnUpdate{
+            background-color: #dc8700;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btnUpdate:hover{
+            background-color: #d8a44d;
+        }
+
+        .btnDelete{
+            background-color: #d8544d;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btnDelete:hover{
+            background-color: #d8644d;
+        }
         input[type=reset] {
             background-color: #d8544d;
             color: white;
@@ -72,7 +119,7 @@ session_start();
         }
 
         input[type=reset]:hover {
-            background-color: #d8547e;
+            background-color: #d8644d;
         }
 
         .container {
@@ -561,7 +608,49 @@ session_start();
     </div>
 
   </form>
-</div>
+  </div>
+  <center>
+<table id="customers">
+
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Screen Name</th>
+        <th>DOB</th>
+        <th>Gender</th>
+        <th>Country</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Password</th>
+        <th>Update</th>
+        <th>Delete</th>
+    </tr>
+
+<?php 
+    include("database.php");
+    $query="SELECT * FROM user";
+    $result= mysqli_query($db,$query);
+    while($row=mysqli_fetch_array($result)){
+
+        /*echo "<tr>";*/
+        echo "<tr>
+                <td>$row[0] </td>
+                <td>$row[1] </td>
+                <td>$row[2] </td>
+                <td>$row[3] </td>
+                <td>$row[4] </td>
+                <td>$row[5] </td>
+                <td>$row[6] </td>
+                <td>$row[7] </td>
+                <td>$row[8] </td>
+                <td><button class='btnUpdate'>Update</button></td>
+                <td><button class='btnDelete' href='delete.php'>Delete</button></td>
+    </tr>";
+        
+    }
+    echo "</table>";
+?>
+
 
 
 
