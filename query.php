@@ -63,9 +63,9 @@ session_start();
 
       addDetails($db,$firstName,$lastName,$scName,$dob,$gender,$country,$email,$phone,$pass1,$pass2);
       
-      
-      
-
+      function DeleteDetails($scName){
+          echo($scname);
+      }
     }
 
 ?>
