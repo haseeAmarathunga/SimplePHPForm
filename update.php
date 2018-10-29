@@ -1,7 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+include 'query.php';
+$user_obj = new User();
+$user_list = $user_obj->user_list();
+
+if (isset($_GET['id'])) {
+    $user_info = $user_obj->viewUser($_GET['id']);
+    if (isset($_POST['update_user']) && $_GET['id'] === $_POST['scname']) {
+        $user_obj->updateUser($_POST);
+    }
+} else {
+    header('Location: form.php');
+}
+?>
+
+<?php
+    if (isset($_SESSION['message'])) {
+        echo "<p class='custom-alert'>" . $_SESSION['message'] . "</p>";
+        unset($_SESSION['message']);
+    }
+?>
+<html>
 <head>
-    <title>View Details</title>
+    <title>Update User</title>
 
     <style>
         #customers {
@@ -48,22 +68,6 @@
             resize: vertical;
             color:#aaa;
             margin-right:10px;
-        }
-
-        .btnSuccess{
-            background-color: #222536;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .btnSuccess:hover{
-            background-color: #d8a44d;
-        }
-
-        .btnSuccess:active {
-            color: #d8a44d;
         }
 
         .country{
@@ -198,47 +202,120 @@
     </style>
 </head>
 <body>
+<div class="fluid">
+<div class="box">
+    <a href="form.php"><button class="BtnUpdate">Back</button></a>
+    <div class="col-75">Update User</div>
+ </div>
+ 
 
-<table id="customers">
 
-<tr>
-    <th>First Name</th>
-    <th>Last Name</th>
-    <th>Screen Name</th>
-    <th>DOB</th>
-    <th>Gender</th>
-    <th>Country</th>
-    <th>Email</th>
-    <th>Phone</th>
-    <th>Password</th>
-    <th>Update</th>
-</tr>
 
-<?php 
-include("database.php");
-$query="SELECT * FROM user";
-$result= mysqli_query($db,$query);
-while($row=mysqli_fetch_array($result)){
+<form action="" method="POST">
+  <div class="container">
+    <div class="row">
+      <div class="col-25">
+        <label for="fname">First Name</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="fname" required name="firstname" placeholder="Enter First Name.."
+        value="<?php if (isset($user_info['firstName'])) {
+            echo $user_info['firstName'];
+        } ?>">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="lname">Last Name</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="lname" required name="lastname" placeholder="Enter Last Name.."
+        value="<?php if (isset($user_info['lastName'])) {
+            echo $user_info['lastName'];
+        } ?>">
+      </div>
+    </div>
 
-    /*echo "<tr>";*/
-    echo "<tr>
-            <td>$row[0] </td>
-            <td>$row[1] </td>
-            <td>$row[2] </td>
-            <td>$row[3] </td>
-            <td>$row[4] </td>
-            <td>$row[5] </td>
-            <td>$row[6] </td>
-            <td>$row[7] </td>
-            <td>$row[8] </td>
-            <td><button class='btnUpdate'>Update</button></td>
-</tr>";
-    
-}
-echo "</table>";
-?>
+    <div class="row">
+      <div class="col-25">
+        <label for="lname">Screen Name</label>
+      </div>
+      <div class="col-75">
+        <input type="text" readonly id="scname" required name="scname" placeholder="Enter Screen Name.."
+        value="<?php if (isset($user_info['screenName'])) {
+            echo $user_info['screenName'];
+        } ?>">
+      </div>
+    </div>
 
+
+  
+
+    <div class="row">
+      
+        <div class="col-25">
+            <label for="email">E-Mail</label>
+        </div>
+        <div class="col-75">
+            <input type="email" required id="email" name="email" placeholder="Enter Email.."
+            value="<?php if (isset($user_info['email'])) {
+            echo $user_info['email'];
+        } ?>">
+        </div>
+
+    </div>
+
+    <div class="row">
+      
+      <div class="col-25">
+          <label for="phone">Phone</label>
+      </div>
+      <div class="col-75">
+          <input type="text" required id="phone" name="phone" placeholder="Enter Phone.."
+          value="<?php if (isset($user_info['phone'])) {
+            echo $user_info['phone'];
+        } ?>">
+      </div>
+
+    </div>
+
+   <div class="row">
+      
+      <div class="col-25">
+          <label for="password" >Password</label>
+      </div>
+      <div class="col-75">
+          <input type="password" id="pass1" name="pass1" required
+          value="<?php if (isset($user_info['password'])) {
+            echo $user_info['password'];
+        } ?>">
+      </div>
+
+    </div>
+
+    <div class="row">
+      
+      <div class="col-25">
+          <label for="password2" >Confirm Password</label>
+      </div>
+      <div class="col-75">
+          <input type="password" required id="pass2" name="pass2">
+      </div>
+
+    </div>
+
+    <div class="agree">
+    <input type="checkbox" required name="agree" value="agree"> I agree to the terms of use<br>
+    </div>
+
+    </div>
+      <div class="box">
+        
+        <input type="submit" value="Update" name="update_user">
+        <input type="reset" value="Cancel">
+    </div>
+
+</div>
 
 </body>
-
 </html>

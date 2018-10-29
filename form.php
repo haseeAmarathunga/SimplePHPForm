@@ -1,8 +1,16 @@
 <?php
-session_start();
+    include 'query.php';
+    $user_obj = new User();
+    $user_list = $user_obj->user_list();
+?>  
+
+<?php
+
+if (isset($_POST['create_user'])) {
+    $user_obj->addUser($_POST);
+}
 ?>
 
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <title>simplePHPForm</title>
@@ -191,19 +199,9 @@ session_start();
     Sign Up
  </div>
  
- <div class="alert">
-	<?php
-		if (isset($_SESSION["error"])){
-			$error=$_SESSION["error"];
-			echo "<script>alert('$error')</script>";
-		}else if(isset($_SESSION["message"])){
-            $message=$_SESSION["message"];
-			echo "<script>alert('$message')</script>";
-        }
-	?>
-</div>
 
-<form action="query.php" method="POST">
+
+<form action="" method="POST">
   <div class="container">
     <div class="row">
       <div class="col-25">
@@ -603,66 +601,67 @@ session_start();
     </div>
       <div class="box">
         
-        <input type="submit" value="Submit">
+        <input type="submit" value="Submit" name="create_user">
         <input type="reset" value="Cancel">
     </div>
 
   </form>
-  </div>
-  <center>
-<table id="customers">
-
-    <tr>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Screen Name</th>
-        <th>DOB</th>
-        <th>Gender</th>
-        <th>Country</th>
-        <th>Email</th>
-        <th>Phone</th>
-        <th>Password</th>
-        <th>Update</th>
-        <th>Delete</th>
-    </tr>
-
-<?php 
-    include("database.php");
-    $query="SELECT * FROM user";
-    $result= mysqli_query($db,$query);
-    while($row=mysqli_fetch_array($result)){
-
-        /*echo "<tr>";*/
-        echo "<tr>
-                <td>$row[0] </td>
-                <td>$row[1] </td>
-                <td>$row[2] </td>
-                <td>$row[3] </td>
-                <td>$row[4] </td>
-                <td>$row[5] </td>
-                <td>$row[6] </td>
-                <td>$row[7] </td>
-                <td>$row[8] </td>
-                <td><button class='btnUpdate'>Update</button></td>
-                <td><button class='btnDelete' href='delete.php'>Delete</button></td>
-    </tr>";
-        
-    }
-    echo "</table>";
-?>
-
-
-
-
-</div>
-    
-</body>
-</html>
 
 <?php
-    unset($_SESSION["error"]);
-    unset($_SESSION["message"]);
+    if (isset($_SESSION['message'])) {
+        echo "<p class='custom-alert'>" . $_SESSION['message'] . "</p>";
+        unset($_SESSION['message']);
+    }
 ?>
+
+</div>
+
+<table id="customers">
+
+<tr>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Screen Name</th>
+    <th>DOB</th>
+    <th>Gender</th>
+    <th>Country</th>
+    <th>Email</th>
+    <th>Phone</th>
+    <th>Password</th>
+    <th>Update</th>
+    <th>Delete</th>
+</tr>
+
+
+<?php
+if ($user_list->num_rows > 0) {
+  while ($row = $user_list->fetch_assoc()) {
+     ?>
+             <tr>
+                <td><?php echo $row["firstName"] ?></td>
+                <td><?php echo $row["lastName"] ?></td>
+                <td><?php echo $row["screenName"] ?></td>
+                <td><?php echo $row["dob"] ?></td>
+                <td><?php echo $row["gender"] ?></td>
+                <td><?php echo $row["country"] ?></td>
+                <td><?php echo $row["email"] ?></td>
+                <td><?php echo $row["phone"] ?></td>
+                <td><?php echo $row["password"] ?></td>
+                <td>
+                <a  href="<?php echo 'update.php?id=' . $row["screenName"] ?>">
+                <button class="BtnUpdate">Edit</button></a> 
+                </td>
+                <td><a  href="<?php echo 'delete.php?id='.$row["screenName"] ?>">
+                <button class="BtnDelete">Delete</button></a> </td>
+                
+            </tr>
+    <?php
+    }
+}
+?>
+
+</body>
+
 
 <script type="text/javascript">
                   
@@ -722,4 +721,4 @@ session_start();
                   } 
                   } 
                   //]]>
-            </script>
+</script>
